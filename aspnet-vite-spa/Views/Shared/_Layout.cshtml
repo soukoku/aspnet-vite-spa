@@ -4,14 +4,14 @@
 @{
     Layout = null;
     manifest.Current.TryGetValue(Model.Entry, out ViteChunk? chunk);
-    ViewData["Title"] = "Error";
+    var title = ViewData["Title"] ?? "Sample";
 }
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SPA TEST</title>
+    <title>@title - SPA TEST</title>
     @if (env.IsDevelopment())
     {
         <script type="module" src="/@@vite/client"></script>
