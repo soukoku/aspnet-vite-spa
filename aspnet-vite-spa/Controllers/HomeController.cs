@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ViteIntegration;
+using Soukoku.AspNetCore.ViteIntegration;
 
 namespace aspnet_vite_spa.Controllers
 {

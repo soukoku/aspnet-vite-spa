@@ -1,4 +1,4 @@
-﻿namespace ViteIntegration
+﻿namespace Soukoku.AspNetCore.ViteIntegration
 {
     /// <summary>
     /// Chunk info from vite manifest.

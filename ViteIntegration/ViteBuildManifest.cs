@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using System.Text.Json;
 
-namespace ViteIntegration
+namespace Soukoku.AspNetCore.ViteIntegration
 {
     /// <summary>
     /// Vite build manifest reader. Used for published

@@ -1,5 +1,5 @@
 using aspnet_vite_spa;
-using ViteIntegration;
+using Soukoku.AspNetCore.ViteIntegration;
 
 var builder = WebApplication.CreateBuilder(args);
 
