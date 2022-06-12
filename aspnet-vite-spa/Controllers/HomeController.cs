@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ViteIntegration;
 
 namespace aspnet_vite_spa.Controllers
 {
@@ -6,21 +7,21 @@ namespace aspnet_vite_spa.Controllers
     {
         public IActionResult Index()
         {
-            var model = new SpaPageModel
+            var model = new VitePageMvcModel
             {
                 Entry = "src/pages/home-index.ts"
             };
-            return View("SpaPage", model);
+            return View("VuePage", model);
         }
 
 
         public IActionResult Another()
         {
-            var model = new SpaPageModel
+            var model = new VitePageMvcModel
             {
                 Entry = "src/pages/home-another.ts"
             };
-            return View("SpaPage", model);
+            return View("VuePage", model);
         }
     }
 }

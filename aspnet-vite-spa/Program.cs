@@ -1,4 +1,5 @@
 using aspnet_vite_spa;
+using ViteIntegration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,9 +27,7 @@ app.UseAuthorization();
 // using endpoints is required so controller match overrides spa in dev
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapDefaultControllerRoute();
 });
 if (app.Environment.IsDevelopment())
 {

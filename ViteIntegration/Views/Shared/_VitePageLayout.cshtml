@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Hosting
+@using Microsoft.Extensions.Hosting
+@using ViteIntegration
+@inject ViteBuildManifest manifest
+@inject IWebHostEnvironment env
+@model IVitePageModel
+@{
+Layout = null;
+manifest.Current.TryGetValue(Model.Entry, out ViteFileChunk? chunk);
+}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>@ViewData["Title"]</title>
+		@if (env.IsDevelopment())
+		{
+		<script type="module" src="/@@vite/client"></script>
+		<script type="module" src="/@Model.Entry"></script>
+		}
+		else if (chunk != null)
+		{
+		<script type="module" src="/@chunk.File"></script>
+		foreach (var css in chunk.Css)
+		{
+		<link rel="stylesheet" href="/@css" />
+		}
+		}
+		@await RenderSectionAsync("Head", required: false)
+	</head>
+	<body>
+		@RenderBody()
+		@await RenderSectionAsync("Scripts", required: false)
+	</body>
+</html>
