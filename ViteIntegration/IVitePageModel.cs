@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace ViteIntegration
 {
+    /// <summary>
+    /// Interface for a model that will be passed to the vite views.
+    /// </summary>
     public interface IVitePageModel
     {
         /// <summary>
@@ -15,7 +18,9 @@ namespace ViteIntegration
         public string Entry { get; set; }
     }
 
-
+    /// <summary>
+    /// Base model for mvc use.
+    /// </summary>
     public class VitePageMvcModel : IVitePageModel
     {
         /// <summary>
@@ -24,6 +29,9 @@ namespace ViteIntegration
         public string Entry { get; set; } = "";
     }
 
+    /// <summary>
+    /// Base model for razor page use.
+    /// </summary>
     public abstract class VitePageModel : PageModel, IVitePageModel
     {
         /// <summary>
