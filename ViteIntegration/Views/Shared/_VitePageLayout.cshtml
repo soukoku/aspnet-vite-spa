@@ -5,7 +5,7 @@
 @inject IWebHostEnvironment env
 @model IVitePageModel
 @{
-var resolved = manifest.ResolveEntryChunk(Model.Entry, this.Context.Request.PathBase);
+var resolved = manifest.ResolveEntryChunk(Model.Entry);
 var lang = ViewData["lang"] ?? "en";
 }
 <!DOCTYPE html>
@@ -14,21 +14,21 @@ var lang = ViewData["lang"] ?? "en";
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>@ViewData["Title"]</title>
-		@if (manifest.Manifest.Count == 0 && env.IsDevelopment())
+		@if (manifest.Entries.Count == 0 && env.IsDevelopment())
 		{
-		<script type="module" src="/@@vite/client"></script>
-		<script type="module" src="/@Model.Entry"></script>
+		<script type="module" src="@Url.Content("~/@vite/client")"></script>
+		<script type="module" src="@Url.Content($"~/{Model.Entry}")"></script>
 		}
 		else if (!string.IsNullOrEmpty(resolved.MainModule))
 		{
-		<script type="module" src="/@resolved.MainModule"></script>
+		<script type="module" src="@resolved.MainModule"></script>
 		foreach (var subMod in resolved.PreloadModules)
 		{
-		<link rel="modulepreload" href="/@subMod">
+		<link rel="modulepreload" href="@Url.Content(subMod)">
 		}
 		foreach (var css in resolved.CssFiles)
 		{
-		<link rel="stylesheet" href="/@css">
+		<link rel="stylesheet" href="@Url.Content(css)">
 		}
 		}
 		@await RenderSectionAsync("Head", required: false)

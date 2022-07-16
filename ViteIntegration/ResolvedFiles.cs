@@ -4,6 +4,7 @@
     /// Contains resolved script and css files for inclusion on a page.
     /// The inclusion order should be <see cref="MainModule"/>, <see cref="PreloadModules"/>,
     /// and <see cref="CssFiles"/> in the page head.
+    /// The paths are virtual so they should be resolved with something like Url.Content().
     /// </summary>
     public class ResolvedFiles
     {

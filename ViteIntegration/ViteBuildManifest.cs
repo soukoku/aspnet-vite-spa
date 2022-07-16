@@ -11,7 +11,7 @@ namespace Soukoku.AspNetCore.ViteIntegration
         /// <summary>
         /// Gets the underlying manifest dictionary.
         /// </summary>
-        public IReadOnlyDictionary<string, ViteFileChunk> Manifest { get; }
+        public IReadOnlyDictionary<string, ViteFileChunk> Entries { get; }
 
         /// <summary>
         /// Initializes with a dictionary.
@@ -19,7 +19,7 @@ namespace Soukoku.AspNetCore.ViteIntegration
         /// <param name="manifest"></param>
         public ViteBuildManifest(IReadOnlyDictionary<string, ViteFileChunk> manifest)
         {
-            Manifest = manifest;
+            Entries = manifest;
         }
 
 
@@ -37,7 +37,7 @@ namespace Soukoku.AspNetCore.ViteIntegration
                 var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
                 value = JsonSerializer.Deserialize<Dictionary<string, ViteFileChunk>>(json, options);
             }
-            Manifest = value ?? new Dictionary<string, ViteFileChunk>();
+            Entries = value ?? new Dictionary<string, ViteFileChunk>();
         }
 
 
@@ -55,24 +55,23 @@ namespace Soukoku.AspNetCore.ViteIntegration
         /// Resolves all files related to an entry chunk.
         /// </summary>
         /// <param name="chunkKey">chunk file key in the manifest.</param>
-        /// <param name="pathBase">Base url path to use. Should use the pathbase value from an http request.</param>
         /// <returns></returns>
-        public ResolvedFiles ResolveEntryChunk(string chunkKey, string pathBase = "/")
+        public ResolvedFiles ResolveEntryChunk(string chunkKey)
         {
             var resolved = new ResolvedFiles();
-            if (Manifest.TryGetValue(chunkKey, out ViteFileChunk? rootChunk) &&
+            if (Entries.TryGetValue(chunkKey, out ViteFileChunk? rootChunk) &&
                 rootChunk != null && rootChunk.IsEntry)
             {
-                resolved.MainModule = pathBase + rootChunk.File;
+                resolved.MainModule = "~/" + rootChunk.File;
                 if (rootChunk.Css != null)
                 {
-                    resolved.CssFiles.AddRange(rootChunk.Css.Select(path => pathBase + path));
+                    resolved.CssFiles.AddRange(rootChunk.Css.Select(path => "~/" + path));
                 }
                 if (rootChunk.Imports != null)
                 {
                     foreach (var subKey in rootChunk.Imports)
                     {
-                        PopulateSubChunk(resolved, subKey, pathBase);
+                        PopulateSubChunk(resolved, subKey);
                     }
                 }
 
@@ -81,19 +80,19 @@ namespace Soukoku.AspNetCore.ViteIntegration
             return resolved;
         }
 
-        private void PopulateSubChunk(ResolvedFiles resolved, string chunkKey, string pathBase)
+        private void PopulateSubChunk(ResolvedFiles resolved, string chunkKey)
         {
-            var chunk = Manifest[chunkKey];
-            resolved.PreloadModules.Add(pathBase + chunk.File);
+            var chunk = Entries[chunkKey];
+            resolved.PreloadModules.Add("~/" + chunk.File);
             if (chunk.Css != null)
             {
-                resolved.CssFiles.AddRange(chunk.Css.Select(path => pathBase + path));
+                resolved.CssFiles.AddRange(chunk.Css.Select(path => "~/" + path));
             }
             if (chunk.Imports != null)
             {
                 foreach (var subKey in chunk.Imports)
                 {
-                    PopulateSubChunk(resolved, subKey, pathBase);
+                    PopulateSubChunk(resolved, subKey);
                 }
             }
         }
