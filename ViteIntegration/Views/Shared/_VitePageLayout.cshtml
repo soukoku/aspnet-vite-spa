@@ -21,7 +21,7 @@ var lang = ViewData["lang"] ?? "en";
 		}
 		else if (!string.IsNullOrEmpty(resolved.MainModule))
 		{
-		<script type="module" src="@resolved.MainModule"></script>
+		<script type="module" src="@Url.Content(resolved.MainModule)"></script>
 		foreach (var subMod in resolved.PreloadModules)
 		{
 		<link rel="modulepreload" href="@Url.Content(subMod)">
