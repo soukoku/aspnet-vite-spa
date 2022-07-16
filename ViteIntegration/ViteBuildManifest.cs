@@ -3,39 +3,33 @@ using System.Text.Json;
 
 namespace Soukoku.AspNetCore.ViteIntegration
 {
-    /// <summary>
-    /// Vite build manifest reader. Used for published
-    /// builds.
-    /// </summary>
-    public class ViteBuildManifest
+	/// <summary>
+	/// Parsed vite build manifest.
+	/// </summary>
+	public class ViteBuildManifest
     {
-        private readonly IWebHostEnvironment _environment;
+        /// <summary>
+        /// Gets the underlying manifest dictionary.
+        /// </summary>
+        public IReadOnlyDictionary<string, ViteFileChunk> Manifest { get; }
 
         /// <summary>
-        /// Ctor that takes a <see cref="IWebHostEnvironment"/>
-        /// and reads the manifest.json file in <see cref="IWebHostEnvironment.WebRootPath"/>.
+        /// Initializes with a dictionary.
         /// </summary>
-        /// <param name="environment"></param>
-        public ViteBuildManifest(IWebHostEnvironment environment)
+        /// <param name="manifest"></param>
+        public ViteBuildManifest(IReadOnlyDictionary<string, ViteFileChunk> manifest)
         {
-            _environment = environment;
-        }
-
-        private IReadOnlyDictionary<string, ViteFileChunk>? _current;
-
-        /// <summary>
-        /// Gets the parsed manifest chunks. Key is the entry file.
-        /// </summary>
-        public IReadOnlyDictionary<string, ViteFileChunk> Current
-        {
-            get { return _current ??= GetCurrent(); }
+            Manifest = manifest;
         }
 
 
-        IReadOnlyDictionary<string, ViteFileChunk> GetCurrent()
+        /// <summary>
+        /// Initializes with a manifest file..
+        /// </summary>
+        /// <param name="manifestFile">File path to the manifest.json.</param>
+        public ViteBuildManifest(string manifestFile)
         {
             IReadOnlyDictionary<string, ViteFileChunk>? value = null;
-            var manifestFile = Path.Combine(_environment.WebRootPath, "manifest.json");
             if (File.Exists(manifestFile))
             {
                 var json = File.ReadAllText(manifestFile);
@@ -43,19 +37,30 @@ namespace Soukoku.AspNetCore.ViteIntegration
                 var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
                 value = JsonSerializer.Deserialize<Dictionary<string, ViteFileChunk>>(json, options);
             }
-            return value ?? new Dictionary<string, ViteFileChunk>();
+            Manifest = value ?? new Dictionary<string, ViteFileChunk>();
+        }
+
+
+        /// <summary>
+        /// Initializes with an assumed
+        /// manifest.json file in <see cref="IWebHostEnvironment.WebRootPath"/>.
+        /// </summary>
+        /// <param name="environment"></param>
+        public ViteBuildManifest(IWebHostEnvironment environment)
+            : this(Path.Combine(environment.WebRootPath, "manifest.json"))
+        {
         }
 
         /// <summary>
         /// Resolves all files related to an entry chunk.
         /// </summary>
         /// <param name="chunkKey">chunk file key in the manifest.</param>
-        /// <param name="pathBase">Base url path to use.</param>
+        /// <param name="pathBase">Base url path to use. Should use the pathbase value from an http request.</param>
         /// <returns></returns>
         public ResolvedFiles ResolveEntryChunk(string chunkKey, string pathBase = "/")
         {
             var resolved = new ResolvedFiles();
-            if (Current.TryGetValue(chunkKey, out ViteFileChunk? rootChunk) &&
+            if (Manifest.TryGetValue(chunkKey, out ViteFileChunk? rootChunk) &&
                 rootChunk != null && rootChunk.IsEntry)
             {
                 resolved.MainModule = pathBase + rootChunk.File;
@@ -78,7 +83,7 @@ namespace Soukoku.AspNetCore.ViteIntegration
 
         private void PopulateSubChunk(ResolvedFiles resolved, string chunkKey, string pathBase)
         {
-            var chunk = Current[chunkKey];
+            var chunk = Manifest[chunkKey];
             resolved.PreloadModules.Add(pathBase + chunk.File);
             if (chunk.Css != null)
             {

@@ -5,16 +5,16 @@
 @inject IWebHostEnvironment env
 @model IVitePageModel
 @{
-Layout = null;
 var resolved = manifest.ResolveEntryChunk(Model.Entry, this.Context.Request.PathBase);
+var lang = ViewData["lang"] ?? "en";
 }
 <!DOCTYPE html>
-<html lang="en">
+<html lang="@lang">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>@ViewData["Title"]</title>
-		@if (manifest.Current.Count == 0 && env.IsDevelopment())
+		@if (manifest.Manifest.Count == 0 && env.IsDevelopment())
 		{
 		<script type="module" src="/@@vite/client"></script>
 		<script type="module" src="/@Model.Entry"></script>
