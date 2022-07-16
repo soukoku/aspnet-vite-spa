@@ -1,13 +1,13 @@
 ﻿namespace Soukoku.AspNetCore.ViteIntegration
 {
 	/// <summary>
-	/// Interface for a model that will be passed to the vite views.
+	/// Base model for mvc use.
 	/// </summary>
-	public interface IVitePageModel
+	public class VitePageMvcModel : IVitePageModel
     {
         /// <summary>
         /// Path to the entry script for the page (e.g. src/main.ts).
         /// </summary>
-        string Entry { get; set; }
+        public string Entry { get; set; } = "";
     }
 }

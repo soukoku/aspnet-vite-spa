@@ -3,10 +3,10 @@ using System.Text.Json;
 
 namespace Soukoku.AspNetCore.ViteIntegration
 {
-	/// <summary>
-	/// Parsed vite build manifest.
-	/// </summary>
-	public class ViteBuildManifest
+    /// <summary>
+    /// Parsed vite build manifest.
+    /// </summary>
+    public class ViteBuildManifest
     {
         /// <summary>
         /// Gets the underlying manifest dictionary.
@@ -68,9 +68,9 @@ namespace Soukoku.AspNetCore.ViteIntegration
                 {
                     resolved.CssFiles.AddRange(rootChunk.Css.Select(path => pathBase + path));
                 }
-                if (rootChunk.DynamicImports != null)
+                if (rootChunk.Imports != null)
                 {
-                    foreach (var subKey in rootChunk.DynamicImports)
+                    foreach (var subKey in rootChunk.Imports)
                     {
                         PopulateSubChunk(resolved, subKey, pathBase);
                     }
@@ -89,9 +89,9 @@ namespace Soukoku.AspNetCore.ViteIntegration
             {
                 resolved.CssFiles.AddRange(chunk.Css.Select(path => pathBase + path));
             }
-            if (chunk.DynamicImports != null)
+            if (chunk.Imports != null)
             {
-                foreach (var subKey in chunk.DynamicImports)
+                foreach (var subKey in chunk.Imports)
                 {
                     PopulateSubChunk(resolved, subKey, pathBase);
                 }
