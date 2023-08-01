@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 services.AddControllersWithViews();
 services.AddSingleton<ViteBuildManifest>();
+services.AddAntiforgery();
 
 var app = builder.Build();
 
