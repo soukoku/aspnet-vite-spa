@@ -19,5 +19,11 @@
     /// Writes antiforgery form value to the page.
     /// </summary>
     public bool UseAntiforgery { get; set; }
+
+    /// <summary>
+    /// Value to populate in page's viewport meta tag.
+    /// Defaults to "width=device-width, initial-scale=1.0".
+    /// </summary>
+    public string ViewportOptions { get; set; } = "width=device-width, initial-scale=1.0";
   }
 }

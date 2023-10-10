@@ -23,7 +23,10 @@
 <html lang="@lang">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  @if (!string.IsNullOrEmpty(Model.ViewportOptions))
+  {
+    <meta name="viewport" content="@Model.ViewportOptions" />
+  }
   <title>@ViewData["Title"]</title>
   @if (manifest.Entries.Count == 0 && env.IsDevelopment())
   {
