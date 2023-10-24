@@ -16,7 +16,8 @@ export default defineConfig({
     https: {
       key: fs.readFileSync(path.join(baseFolder, `${certName}.key`)),
       cert: fs.readFileSync(path.join(baseFolder, `${certName}.pem`))
-    }
+    },
+    port:3000
   },
   build: {
     // outDir: '../wwwroot',
