@@ -8,7 +8,7 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
-    <Version>$(FileVersion)-alpha9</Version>
+    <Version>$(FileVersion)-alpha10</Version>
     <Description>Provides vite manifested build support for mvc views.</Description>
     <Authors>Eugene Wang</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

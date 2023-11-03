@@ -2,12 +2,14 @@
 @using Microsoft.AspNetCore.Hosting
 @using Microsoft.Extensions.DependencyInjection;
 @using Microsoft.Extensions.Hosting
+@using Microsoft.Extensions.Options;
 @using Soukoku.AspNetCore.ViteIntegration
 @using System.Text.Json.Serialization;
 @using System.Text.Json;
 @inject ViteBuildManifest manifest
 @inject IWebHostEnvironment env
 @inject IServiceProvider services
+@inject IOptions<JsonOptions>? jsonOptions
 @model VitePageMvcModel
 @{
   var resolved = manifest.ResolveEntryChunk(Model.Entry);
@@ -16,7 +18,7 @@
 
   if (Model.PageData != null)
   {
-    pageData = JsonSerializer.Serialize(Model.PageData);
+    pageData = JsonSerializer.Serialize(Model.PageData, jsonOptions?.Value.JsonSerializerOptions);
   }
 }
 <!DOCTYPE html>
