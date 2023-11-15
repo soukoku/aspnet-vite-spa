@@ -8,7 +8,7 @@ const count = ref(0)
 
 <template>
   <h1>{{ msg }}</h1>
-  <p>Blah blah asdf shallo</p>
+  <p>Blah blah asdf</p>
   <p>
     Recommended IDE setup:
     <a href="https://code.visualstudio.com/" target="_blank">VS Code</a>
