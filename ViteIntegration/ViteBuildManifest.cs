@@ -47,7 +47,7 @@ namespace Soukoku.AspNetCore.ViteIntegration
         /// </summary>
         /// <param name="environment"></param>
         public ViteBuildManifest(IWebHostEnvironment environment)
-            : this(Path.Combine(environment.WebRootPath, "manifest.json"))
+            : this(Path.Combine(environment.WebRootPath, ".vite", "manifest.json"))
         {
         }
 
