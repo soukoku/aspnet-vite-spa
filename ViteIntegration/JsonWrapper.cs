@@ -1,0 +1,46 @@
+namespace Soukoku.AspNetCore.ViteIntegration;
+
+#if NETFRAMEWORK
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+static class JsonWrapper
+{
+    static readonly JsonSerializerSettings Options = new()
+    {
+         ContractResolver = new DefaultContractResolver
+         {
+             NamingStrategy = new CamelCaseNamingStrategy()
+         }
+    };
+
+    public static T? Deserialize<T>(string jsonText)
+    {
+        return JsonConvert.DeserializeObject<T>(jsonText, Options);
+    }
+
+    public static string Serialize<T>(T obj)
+    {
+        return JsonConvert.SerializeObject(obj, Options);
+    }
+}
+#else
+using System.Text.Json;
+static class JsonWrapper
+{
+    static readonly JsonSerializerOptions Options = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+    };
+
+    public static T? Deserialize<T>(string jsonText)
+    {
+        return JsonSerializer.Deserialize<T>(jsonText, Options);
+    }
+
+    public static string Serialize<T>(T obj)
+    {
+        return JsonSerializer.Serialize(obj, Options);
+    }
+}
+#endif

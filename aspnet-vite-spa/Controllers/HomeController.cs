@@ -16,7 +16,7 @@ namespace aspnet_vite_spa.Controllers
           Property = "howdy"
         }
       };
-      return View("VuePage", model);
+      return View("VitePage", model);
     }
 
 
@@ -26,7 +26,7 @@ namespace aspnet_vite_spa.Controllers
       {
         Entry = "src/pages/home-another.ts"
       };
-      return View("VuePage", model);
+      return View("VitePage", model);
     }
   }
 }

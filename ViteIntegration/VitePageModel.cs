@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿#if !NETFRAMEWORK
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Soukoku.AspNetCore.ViteIntegration
 {
@@ -13,3 +14,4 @@ namespace Soukoku.AspNetCore.ViteIntegration
     public string Entry { get; set; } = "";
   }
 }
+#endif

@@ -9,13 +9,18 @@ const baseFolder =
     : `${process.env.HOME}/.aspnet/https`
 const certName = process.env.npm_package_name
 
+const certKey = path.join(baseFolder, `${certName}.key`)
+const certPub = path.join(baseFolder, `${certName}.pem`)
+console.log(`expert cert at ${certKey}`)
+
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
   server: {
     https: {
-      key: fs.readFileSync(path.join(baseFolder, `${certName}.key`)),
-      cert: fs.readFileSync(path.join(baseFolder, `${certName}.pem`))
+      key: fs.readFileSync(certKey),
+      cert: fs.readFileSync(certPub)
     },
     port:3000
   },

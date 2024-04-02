@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using System.Text.Json;
-
-namespace Soukoku.AspNetCore.ViteIntegration
+﻿namespace Soukoku.AspNetCore.ViteIntegration
 {
     /// <summary>
     /// Parsed vite build manifest.
@@ -11,7 +8,7 @@ namespace Soukoku.AspNetCore.ViteIntegration
         /// <summary>
         /// Gets the underlying manifest dictionary.
         /// </summary>
-        public IReadOnlyDictionary<string, ViteFileChunk> Entries { get; }
+        public IReadOnlyDictionary<string, ViteFileChunk> Entries { get; set; }
 
         /// <summary>
         /// Initializes with a dictionary.
@@ -29,27 +26,39 @@ namespace Soukoku.AspNetCore.ViteIntegration
         /// <param name="manifestFile">File path to the manifest.json.</param>
         public ViteBuildManifest(string manifestFile)
         {
+            LoadFile(manifestFile);
+        }
+
+        private void LoadFile(string manifestFile)
+        {
             IReadOnlyDictionary<string, ViteFileChunk>? value = null;
             if (File.Exists(manifestFile))
             {
                 var json = File.ReadAllText(manifestFile);
-
-                var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-                value = JsonSerializer.Deserialize<Dictionary<string, ViteFileChunk>>(json, options);
+                value = JsonWrapper.Deserialize<Dictionary<string, ViteFileChunk>>(json);
             }
+
             Entries = value ?? new Dictionary<string, ViteFileChunk>();
         }
-
+#if !NETFRAMEWORK
 
         /// <summary>
         /// Initializes with an assumed
-        /// manifest.json file in <see cref="IWebHostEnvironment.WebRootPath"/>.
+        /// manifest.json file in <see cref="Microsoft.AspNetCore.Hosting.IWebHostEnvironment.WebRootPath"/>.
         /// </summary>
         /// <param name="environment"></param>
-        public ViteBuildManifest(IWebHostEnvironment environment)
-            : this(Path.Combine(environment.WebRootPath, ".vite", "manifest.json"))
+        public ViteBuildManifest(Microsoft.AspNetCore.Hosting.IWebHostEnvironment environment)
         {
+            if (environment.WebRootPath != null)
+            {
+                LoadFile(Path.Combine(environment.WebRootPath, ".vite", "manifest.json"));
+            }
+            else
+            {
+                Entries = new Dictionary<string, ViteFileChunk>();
+            }
         }
+#endif
 
         /// <summary>
         /// Resolves all files related to an entry chunk.
@@ -67,6 +76,7 @@ namespace Soukoku.AspNetCore.ViteIntegration
                 {
                     resolved.CssFiles.AddRange(rootChunk.Css.Select(path => "~/" + path));
                 }
+
                 if (rootChunk.Imports != null)
                 {
                     foreach (var subKey in rootChunk.Imports)
@@ -77,6 +87,7 @@ namespace Soukoku.AspNetCore.ViteIntegration
 
                 resolved.CssFiles = resolved.CssFiles.Distinct().ToList();
             }
+
             return resolved;
         }
 
@@ -88,6 +99,7 @@ namespace Soukoku.AspNetCore.ViteIntegration
             {
                 resolved.CssFiles.AddRange(chunk.Css.Select(path => "~/" + path));
             }
+
             if (chunk.Imports != null)
             {
                 foreach (var subKey in chunk.Imports)

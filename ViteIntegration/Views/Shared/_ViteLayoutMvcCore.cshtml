@@ -1,24 +1,17 @@
-﻿@using Microsoft.AspNetCore.Antiforgery;
-@using Microsoft.AspNetCore.Hosting
-@using Microsoft.Extensions.DependencyInjection;
-@using Microsoft.Extensions.Hosting
-@using Microsoft.Extensions.Options;
+﻿@using Microsoft.AspNetCore.Hosting
+@using Microsoft.Extensions.Hosting;
 @using Soukoku.AspNetCore.ViteIntegration
-@using System.Text.Json.Serialization;
-@using System.Text.Json;
-@inject ViteBuildManifest manifest
-@inject IWebHostEnvironment env
-@inject IServiceProvider services
-@inject IOptions<JsonOptions>? jsonOptions
+@inject ViteBuildManifest Manifest
+@inject IWebHostEnvironment Env
 @model VitePageMvcModel
 @{
-  var resolved = manifest.ResolveEntryChunk(Model.Entry);
+  var resolved = Manifest.ResolveEntryChunk(Model.Entry);
   var lang = ViewData["lang"] ?? "en";
   string? pageData = null;
 
   if (Model.PageData != null)
   {
-    pageData = JsonSerializer.Serialize(Model.PageData, jsonOptions?.Value.JsonSerializerOptions);
+    pageData = JsonWrapper.Serialize(Model.PageData);
   }
 }
 <!DOCTYPE html>
@@ -30,7 +23,7 @@
     <meta name="viewport" content="@Model.ViewportOptions" />
   }
   <title>@ViewData["Title"]</title>
-  @if (manifest.Entries.Count == 0 && env.IsDevelopment())
+  @if (Manifest.Entries.Count == 0 && Env.IsDevelopment())
   {
     <script type="module" src="@Url.Content("~/@vite/client")"></script>
     <script type="module" src="@Url.Content($"~/{Model.Entry}")"></script>
