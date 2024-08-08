@@ -83,6 +83,10 @@ namespace Soukoku.AspNetCore.ViteIntegration
         private void PopulateSubChunk(ResolvedFiles resolved, string chunkKey)
         {
             var chunk = Entries[chunkKey];
+
+            // skip processed in case if circular deps
+            if (resolved.PreloadModules.Any(m => m.EndsWith(chunk.File))) return;
+
             resolved.PreloadModules.Add("~/" + chunk.File);
             if (chunk.Css != null)
             {
