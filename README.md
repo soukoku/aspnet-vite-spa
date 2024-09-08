@@ -1,11 +1,23 @@
-# aspnet-vite-spa
-Sample of using vite with aspnet (net6) with aspnet handling the views and vite handling the assets.
+# Soukoku.AspNetCore.ViteIntegration
 
-## Dev time
-Run the typical `npm run dev` in the *vite-app* folder, then debug aspnet as usual.
-Aspnet has the controllers and views, and the view specify what script file as entry.
-If the vite url changes from https://localhost:3000 then change it accordingly in *Program.cs* file.
+Lib for integrating with a Vite app in an aspnet core app. 
+Dotnet app provides the backend while Vite app provides the frontend.
 
-## Published
-Everything should just work when publishing the aspnet site. Vite makes the assets and 
-they becomes static files.
+## Usage
+
+In the typical **Program.cs** file, register it with
+
+```cs
+var builder = WebApplication.CreateBuilder(args);
+
+// depends on the actual dev server url
+builder.Services.AddViteManifest("https://localhost:3000");
+
+```
+
+Run the typical `npm run dev` in your *vite-app* folder, then debug in aspnet as usual.
+
+
+## Example
+
+A more complete example is in the repo's `aspnet-vite-spa` project.
