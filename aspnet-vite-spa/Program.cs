@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var services = builder.Services;
 services.AddControllersWithViews();
-services.AddSingleton<ViteBuildManifest>();
+services.AddViteManifest("https://localhost:3000");
 services.AddAntiforgery();
 
 var app = builder.Build();
@@ -23,28 +23,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-if (app.Environment.IsDevelopment())
-{
-#pragma warning disable ASP0014 // using endpoints is required so controller match overrides spa in dev
-  app.UseEndpoints(endpoints =>
-  {
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
-  });
-#pragma warning restore ASP0014 // Suggest using top level route registrations
-
-  app.UseSpa(spa =>
-    {
-      spa.UseProxyToSpaDevelopmentServer("https://localhost:3000");
-    });
-}
-else
-{
-  app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-}
+app.MapDefaultControllerRoute();
 
 app.Run();
