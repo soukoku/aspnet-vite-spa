@@ -56,7 +56,7 @@ namespace WebApp.Controllers
                 nmPath != null ? $"node_modules/{nmPath}" :
                 assetPath != null ? $"assets/{assetPath}" : "";
 
-            return new HttpResponseMessageResult(await __proxyClient.GetAsync(url));
+            return new HttpResponseMessageResult(await __proxyClient.GetAsync(url + Request.QueryString));
         }
     }
 
