@@ -6,18 +6,13 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
-    <SpaRoot>vite-app\</SpaRoot>
+    <SpaRoot>..\vite-app\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
     <!--<SpaProxyServerUrl>https://localhost:3000</SpaProxyServerUrl>
     <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>-->
     <RootNamespace>aspnet_vite_spa</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
-  <ItemGroup>
-    <!--<PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.4" />-->
-    <!--<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.24" />-->
-  </ItemGroup>
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
@@ -31,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ViteIntegration\Soukoku.AspNetCore.ViteIntegration.csproj" />
+    <ProjectReference Include="..\Soukoku.AspNetCore.ViteIntegration\Soukoku.AspNetCore.ViteIntegration.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
