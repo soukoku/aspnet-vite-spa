@@ -140,9 +140,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Soukoku.AspNet.ViteIntegration\Soukoku.AspNet.ViteIntegration.csproj">
+    <ProjectReference Include="..\Soukoku.AspNet.Mvc.ViteIntegration\Soukoku.AspNet.Mvc.ViteIntegration.csproj">
       <Project>{35233539-50db-49ec-84ce-52fe31ad61ce}</Project>
-      <Name>Soukoku.AspNet.ViteIntegration</Name>
+      <Name>Soukoku.AspNet.Mvc.ViteIntegration</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -12,6 +12,7 @@ namespace AspnetMvc
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapViteSpaProxy();
             routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(

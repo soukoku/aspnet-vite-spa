@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Soukoku.AspNetCore.ViteInte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspnetMvc", "AspnetMvc\AspnetMvc.csproj", "{05CAD0EC-0B01-456C-8DA1-0DD16AC176BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Soukoku.AspNet.ViteIntegration", "Soukoku.AspNet.ViteIntegration\Soukoku.AspNet.ViteIntegration.csproj", "{35233539-50DB-49EC-84CE-52FE31AD61CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Soukoku.AspNet.Mvc.ViteIntegration", "Soukoku.AspNet.Mvc.ViteIntegration\Soukoku.AspNet.Mvc.ViteIntegration.csproj", "{35233539-50DB-49EC-84CE-52FE31AD61CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
