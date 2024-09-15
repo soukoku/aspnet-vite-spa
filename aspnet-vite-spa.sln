@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Soukoku.AspNetCore.ViteIntegration", "ViteIntegration\Soukoku.AspNetCore.ViteIntegration.csproj", "{EAF339CC-FE92-4237-BD9D-D04E30B24864}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspnetMvc", "AspnetMvc\AspnetMvc.csproj", "{05CAD0EC-0B01-456C-8DA1-0DD16AC176BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{EAF339CC-FE92-4237-BD9D-D04E30B24864}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAF339CC-FE92-4237-BD9D-D04E30B24864}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAF339CC-FE92-4237-BD9D-D04E30B24864}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05CAD0EC-0B01-456C-8DA1-0DD16AC176BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05CAD0EC-0B01-456C-8DA1-0DD16AC176BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05CAD0EC-0B01-456C-8DA1-0DD16AC176BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05CAD0EC-0B01-456C-8DA1-0DD16AC176BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
