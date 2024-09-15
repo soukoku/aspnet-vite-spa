@@ -1,5 +1,5 @@
 ﻿using Soukoku.AspNetCore.ViteIntegration;
-using WebApp.Controllers;
+using Soukoku.AspNetCore.ViteIntegration.Controllers;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

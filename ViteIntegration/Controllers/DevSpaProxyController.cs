@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 
-namespace WebApp.Controllers
+namespace Soukoku.AspNetCore.ViteIntegration.Controllers
 {
     /// <summary>
     /// Debug-time only controller for proxying requests to vite's dev server during development.
