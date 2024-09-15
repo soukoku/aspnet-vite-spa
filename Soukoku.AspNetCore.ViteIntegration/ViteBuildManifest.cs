@@ -1,7 +1,7 @@
 ﻿#if NETFRAMEWORK
 using Newtonsoft.Json;
 
-namespace Soukoku.AspNet.ViteIntegration;
+namespace Soukoku.AspNet.Mvc.ViteIntegration;
 #else
 using Microsoft.AspNetCore.Hosting;
 using System.Text.Json;

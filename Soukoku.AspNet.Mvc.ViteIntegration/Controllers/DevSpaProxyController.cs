@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Web.Mvc;
 
-namespace Soukoku.AspNet.ViteIntegration.Controllers
+namespace Soukoku.AspNet.Mvc.ViteIntegration.Controllers
 {
     /// <summary>
     /// Debug-time only controller for proxying requests to vite's dev server during development.

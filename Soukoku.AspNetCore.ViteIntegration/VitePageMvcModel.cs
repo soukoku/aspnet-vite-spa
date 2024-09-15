@@ -1,5 +1,5 @@
 ﻿#if NETFRAMEWORK
-namespace Soukoku.AspNet.ViteIntegration;
+namespace Soukoku.AspNet.Mvc.ViteIntegration;
 #else
 namespace Soukoku.AspNetCore.ViteIntegration;
 #endif

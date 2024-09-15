@@ -1,4 +1,4 @@
-﻿using Soukoku.AspNet.ViteIntegration.Controllers;
+﻿using Soukoku.AspNet.Mvc.ViteIntegration.Controllers;
 using System.Web.Routing;
 
 namespace System.Web.Mvc
