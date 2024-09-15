@@ -10,7 +10,7 @@ namespace System.Web.Mvc
     public static class ViteExtensions
     {
         /// <summary>
-        /// Adds a proxy handler to Vite dev server.
+        /// Adds a Vite dev server proxy route to the mvc routes. 
         /// </summary>
         /// <param name="routes"></param>
         /// <param name="devTimeUrl">Url to vite dev server at dev time. If base is used, add it with slash like https://localhost/3000/somebase/.</param>
@@ -23,7 +23,13 @@ namespace System.Web.Mvc
             }
             DevSpaProxyController.SetDevTimeUrl(devTimeUrl);
 
-            //AttributeRoutingMapper.MapAttributeRoutes(routes, new DefaultInlineConstraintResolver());
+
+            routes.MapRoute(
+                name: "SpaProxy",
+                url: "{controller}/{action}/{id}",
+                defaults: null,
+                namespaces: new[] { typeof(DevSpaProxyController).Namespace }
+            );
         }
 
     }

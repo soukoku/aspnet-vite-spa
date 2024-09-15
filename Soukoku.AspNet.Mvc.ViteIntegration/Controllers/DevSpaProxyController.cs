@@ -67,6 +67,7 @@ namespace Soukoku.AspNet.Mvc.ViteIntegration.Controllers
         public override void ExecuteResult(ControllerContext context)
         {
             var response = context.HttpContext.Response;
+            response.Clear();
 
 
             if (_responseMessage == null)
@@ -78,6 +79,7 @@ namespace Soukoku.AspNet.Mvc.ViteIntegration.Controllers
 
             using (_responseMessage)
             {
+                response.TrySkipIisCustomErrors = true;
                 response.StatusCode = (int)_responseMessage.StatusCode;
 
                 var responseHeaders = _responseMessage.Headers;
@@ -108,7 +110,9 @@ namespace Soukoku.AspNet.Mvc.ViteIntegration.Controllers
                     {
                         response.Headers.Set(header.Key, header.Value.FirstOrDefault());
                     }
+                    response.ContentType = _responseMessage.Content.Headers.ContentType.ToString();
                     _responseMessage.Content.CopyToAsync(response.OutputStream).ConfigureAwait(false).GetAwaiter().GetResult();
+                    response.End();
                 }
             }
         }
