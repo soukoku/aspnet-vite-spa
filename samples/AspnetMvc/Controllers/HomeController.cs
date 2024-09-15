@@ -11,7 +11,9 @@ namespace AspnetMvc.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        //[HttpGet]
+        //[Route("{*anyPath}")]
+        public ActionResult Index()//string anyPath = null)
         {
             var model = new VitePageMvcModel
             {

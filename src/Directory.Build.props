@@ -14,7 +14,7 @@
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>../../../release-build/strong-name.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>../strong-name.snk</AssemblyOriginatorKeyFile>
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

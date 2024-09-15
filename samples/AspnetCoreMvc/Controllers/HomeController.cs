@@ -5,7 +5,8 @@ namespace aspnet_vite_spa.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        [HttpGet("{*anyPath}")]
+        public ActionResult Index(string? anyPath = null)
         {
             var model = new VitePageMvcModel
             {

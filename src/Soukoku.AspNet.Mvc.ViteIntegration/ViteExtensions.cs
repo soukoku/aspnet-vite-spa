@@ -30,13 +30,7 @@ public static class ViteExtensions
         ViteBuildManifest.Default = new ViteBuildManifest(viteManifestPath);
 
         //ViewEngines.Engines.Add(engine);
-
-        routes.MapRoute(
-            name: "SpaProxy",
-            url: "{controller}/{action}/{id}",
-            defaults: null,
-            namespaces: new[] { typeof(DevSpaProxyController).Namespace }
-        );
+        ControllerBuilder.Current.DefaultNamespaces.Add(typeof(DevSpaProxyController).Namespace);
     }
 
 }

@@ -20,13 +20,14 @@ In a controller method that should serve the SPA view, use "VuePage"
 and give it a `VitePageMvcModel`.
 
 ```cs
-public IActionResult Index()
+[HttpGet("{*anyPath}")]
+public ActionResult Index(string? anyPath = null)
 {
     var model = new VitePageMvcModel
     {
         Entry = "src/main.ts",
-        UseAntiforgery = true,
-        PageData = new
+        UseAntiforgery = true, // if necessary
+        PageData = new         // as needed
         {
             Property = "howdy"
         }
@@ -46,6 +47,7 @@ Add the NuGet package `Soukoku.AspNet.Mvc.ViteIntegration`, then
 in the typical **RouteConfig.cs** file, register it with.
 
 ```cs
+// assuming "dist" output content is placed in site root
 var manifestPath = HostingEnvironment.MapPath("~/.vite/manifest.json");
 // depends on the actual dev server url
 routes.MapViteSpaProxy(manifestPath, "https://localhost:3000");
@@ -61,14 +63,36 @@ public ActionResult Index()
     var model = new VitePageMvcModel
     {
         Entry = "src/main.ts",
-        UseAntiforgery = true,
-        PageData = new
+        UseAntiforgery = true, // if necessary
+        PageData = new         // as needed
         {
             Property = "howdy"
         }
     };
     return View("VuePage", model);
 }
+```
+
+For dev time, ensure these are in the **web.config** file
+
+```xml
+  <!--used by spa dev proxy to allow : in url-->
+  <location path="@id">
+    <system.web>
+      <httpRuntime requestPathInvalidCharacters="&lt;,&gt;,*,%,&amp;,\,?" />
+    </system.web>
+  </location>
+  
+  <!--allow path with file extensions to be handled by spa dev proxy-->
+  <system.webServer>
+    <modules runAllManagedModulesForAllRequests="true" />
+    <handlers>
+      <remove name="ExtensionlessUrlHandler-Integrated-4.0" />
+      <remove name="OPTIONSVerbHandler" />
+      <remove name="TRACEVerbHandler" />
+      <add name="ExtensionlessUrlHandler-Integrated-4.0" path="*." verb="*" type="System.Web.Handlers.TransferRequestHandler" preCondition="integratedMode,runtimeVersionv4.0" />
+    </handlers>
+  </system.webServer>
 ```
 
 
