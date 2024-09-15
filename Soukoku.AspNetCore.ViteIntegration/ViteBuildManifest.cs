@@ -43,7 +43,7 @@ public class ViteBuildManifest
 #if !NETFRAMEWORK
     /// <summary>
     /// Initializes with an assumed
-    /// manifest.json file in <see cref="IWebHostEnvironment.WebRootPath"/>.
+    /// manifest.json file in <see cref="Microsoft.AspNetCore.Hosting.IWebHostEnvironment.WebRootPath"/>.
     /// </summary>
     /// <param name="environment"></param>
     public ViteBuildManifest(Microsoft.AspNetCore.Hosting.IWebHostEnvironment environment)
