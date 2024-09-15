@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>12</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Views\Shared\VuePage.cshtml" />
+    <None Remove="Views\Shared\_VitePageLayout.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Soukoku.AspNetCore.ViteIntegration\IVitePageModel.cs" Link="IVitePageModel.cs" />
+    <Compile Include="..\Soukoku.AspNetCore.ViteIntegration\JsonWrapper.cs" Link="JsonWrapper.cs" />
+    <Compile Include="..\Soukoku.AspNetCore.ViteIntegration\ResolvedFiles.cs" Link="ResolvedFiles.cs" />
+    <Compile Include="..\Soukoku.AspNetCore.ViteIntegration\ViteBuildManifest.cs" Link="ViteBuildManifest.cs" />
+    <Compile Include="..\Soukoku.AspNetCore.ViteIntegration\ViteFileChunk.cs" Link="ViteFileChunk.cs" />
+    <Compile Include="..\Soukoku.AspNetCore.ViteIntegration\VitePageMvcModel.cs" Link="VitePageMvcModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Views\Shared\VuePage.cshtml" />
+    <Content Include="Views\Shared\_VitePageLayout.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+
+</Project>
