@@ -139,7 +139,12 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Soukoku.AspNet.ViteIntegration\Soukoku.AspNet.ViteIntegration.csproj">
+      <Project>{35233539-50db-49ec-84ce-52fe31ad61ce}</Project>
+      <Name>Soukoku.AspNet.ViteIntegration</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
