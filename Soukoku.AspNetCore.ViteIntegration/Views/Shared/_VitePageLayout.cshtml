@@ -3,8 +3,6 @@
 @using Microsoft.Extensions.Hosting
 @using Microsoft.Extensions.Options;
 @using Soukoku.AspNetCore.ViteIntegration
-@using System.Text.Json.Serialization;
-@using System.Text.Json;
 @inject ViteBuildManifest manifest
 @inject IWebHostEnvironment env
 @inject IServiceProvider services
@@ -17,7 +15,7 @@
 
   if (Model.PageData != null)
   {
-    pageData = JsonSerializer.Serialize(Model.PageData, jsonOptions?.Value.JsonSerializerOptions);
+    pageData = JsonWrapper.Serialize(Model.PageData);
   }
 }
 <!DOCTYPE html>

@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <Compile Include="..\Soukoku.AspNetCore.ViteIntegration\IVitePageModel.cs" Link="IVitePageModel.cs" />
+    <Compile Include="..\Soukoku.AspNetCore.ViteIntegration\JsonWrapper.cs" Link="JsonWrapper.cs" />
     <Compile Include="..\Soukoku.AspNetCore.ViteIntegration\ResolvedFiles.cs" Link="ResolvedFiles.cs" />
     <Compile Include="..\Soukoku.AspNetCore.ViteIntegration\ViteBuildManifest.cs" Link="ViteBuildManifest.cs" />
     <Compile Include="..\Soukoku.AspNetCore.ViteIntegration\ViteFileChunk.cs" Link="ViteFileChunk.cs" />

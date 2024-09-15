@@ -1,11 +1,6 @@
 ﻿#if NETFRAMEWORK
-using Newtonsoft.Json;
-
 namespace Soukoku.AspNet.Mvc.ViteIntegration;
 #else
-using Microsoft.AspNetCore.Hosting;
-using System.Text.Json;
-
 namespace Soukoku.AspNetCore.ViteIntegration;
 #endif
 
@@ -29,8 +24,6 @@ public class ViteBuildManifest
         Entries = manifest;
     }
 
-#if NETFRAMEWORK
-
     /// <summary>
     /// Initializes with a manifest file..
     /// </summary>
@@ -42,37 +35,18 @@ public class ViteBuildManifest
         {
             var json = File.ReadAllText(manifestFile);
 
-            value = JsonConvert.DeserializeObject<Dictionary<string, ViteFileChunk>>(json);
+            value = JsonWrapper.Deserialize<Dictionary<string, ViteFileChunk>>(json);
         }
         Entries = value ?? new Dictionary<string, ViteFileChunk>();
     }
 
-#else
-
-    /// <summary>
-    /// Initializes with a manifest file..
-    /// </summary>
-    /// <param name="manifestFile">File path to the manifest.json.</param>
-    public ViteBuildManifest(string manifestFile)
-    {
-        IReadOnlyDictionary<string, ViteFileChunk>? value = null;
-        if (File.Exists(manifestFile))
-        {
-            var json = File.ReadAllText(manifestFile);
-
-            var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-            value = JsonSerializer.Deserialize<Dictionary<string, ViteFileChunk>>(json, options);
-        }
-        Entries = value ?? new Dictionary<string, ViteFileChunk>();
-    }
-
-
+#if !NETFRAMEWORK
     /// <summary>
     /// Initializes with an assumed
     /// manifest.json file in <see cref="IWebHostEnvironment.WebRootPath"/>.
     /// </summary>
     /// <param name="environment"></param>
-    public ViteBuildManifest(IWebHostEnvironment environment)
+    public ViteBuildManifest(Microsoft.AspNetCore.Hosting.IWebHostEnvironment environment)
         : this(Path.Combine(environment.WebRootPath ?? "", ".vite", "manifest.json"))
     {
     }

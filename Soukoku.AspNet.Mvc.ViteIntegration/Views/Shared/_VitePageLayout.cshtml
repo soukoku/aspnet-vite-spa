@@ -1,5 +1,4 @@
 ﻿@using Soukoku.AspNet.Mvc.ViteIntegration
-@using Newtonsoft.Json;
 @inject ViteBuildManifest manifest
 @model VitePageMvcModel
 @{
@@ -9,7 +8,7 @@
 
   if (Model.PageData != null)
   {
-    pageData = JsonConverter.Serialize(Model.PageData);
+    pageData = JsonWrapper.Serialize(Model.PageData);
   }
 }
 <!DOCTYPE html>
