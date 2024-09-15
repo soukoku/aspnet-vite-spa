@@ -1,17 +1,13 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting;
+﻿using System.Net.Http;
+using System.Web.Mvc;
 
-namespace Soukoku.AspNetCore.ViteIntegration.Controllers
+namespace Soukoku.AspNet.ViteIntegration.Controllers
 {
     /// <summary>
     /// Debug-time only controller for proxying requests to vite's dev server during development.
     /// This is only used during development.
     /// </summary>
-    [ApiExplorerSettings(IgnoreApi = true)]
-    public class DevSpaProxyController : ControllerBase
+    public class DevSpaProxyController : Controller
     {
         internal static void SetDevTimeUrl(string? devTimeUrl)
         {
@@ -40,15 +36,14 @@ namespace Soukoku.AspNetCore.ViteIntegration.Controllers
         [Route("src/{*srcPath}")]
         [Route("node_modules/{*nmPath}")]
         [Route("assets/{*assetPath}")]
-        public async Task<IActionResult> SpaDevServerProxy(
-            [FromServices] IWebHostEnvironment environment,
+        public async Task<ActionResult> SpaDevServerProxy(
             string? vitePath = null,
             string? idPath = null,
             string? srcPath = null,
             string? nmPath = null,
             string? assetPath = null)
         {
-            if (__proxyClient == null || !environment.IsDevelopment()) return NotFound();
+            if (__proxyClient == null) return new HttpNotFoundResult();
 
             var url = vitePath != null ? $"@vite/{vitePath}" :
                 idPath != null ? $"@id/{idPath}" :
@@ -56,12 +51,11 @@ namespace Soukoku.AspNetCore.ViteIntegration.Controllers
                 nmPath != null ? $"node_modules/{nmPath}" :
                 assetPath != null ? $"assets/{assetPath}" : "";
 
-            var resp = await __proxyClient.GetAsync(url + Request.QueryString).ConfigureAwait(false);
-            return new HttpResponseMessageResult(resp);
+            return new HttpResponseMessageResult(await __proxyClient.GetAsync(url + Request.QueryString).ConfigureAwait(false));
         }
     }
 
-    class HttpResponseMessageResult : IActionResult
+    class HttpResponseMessageResult : ActionResult
     {
         private readonly HttpResponseMessage _responseMessage;
 
@@ -70,7 +64,7 @@ namespace Soukoku.AspNetCore.ViteIntegration.Controllers
             _responseMessage = responseMessage; // could add throw if null
         }
 
-        public async Task ExecuteResultAsync(ActionContext context)
+        public override void ExecuteResult(ControllerContext context)
         {
             var response = context.HttpContext.Response;
 
@@ -86,12 +80,6 @@ namespace Soukoku.AspNetCore.ViteIntegration.Controllers
             {
                 response.StatusCode = (int)_responseMessage.StatusCode;
 
-                var responseFeature = context.HttpContext.Features.Get<IHttpResponseFeature>();
-                if (responseFeature != null)
-                {
-                    responseFeature.ReasonPhrase = _responseMessage.ReasonPhrase;
-                }
-
                 var responseHeaders = _responseMessage.Headers;
 
                 // Ignore the Transfer-Encoding header if it is just "chunked".
@@ -104,7 +92,7 @@ namespace Soukoku.AspNetCore.ViteIntegration.Controllers
 
                 foreach (var header in responseHeaders)
                 {
-                    response.Headers.Append(header.Key, header.Value.ToArray());
+                    response.Headers.Set(header.Key, header.Value.FirstOrDefault());
                 }
 
                 if (_responseMessage.Content != null)
@@ -118,10 +106,9 @@ namespace Soukoku.AspNetCore.ViteIntegration.Controllers
 
                     foreach (var header in contentHeaders)
                     {
-                        response.Headers.Append(header.Key, header.Value.ToArray());
+                        response.Headers.Set(header.Key, header.Value.FirstOrDefault());
                     }
-
-                    await _responseMessage.Content.CopyToAsync(response.Body);
+                    _responseMessage.Content.CopyToAsync(response.OutputStream).ConfigureAwait(false).GetAwaiter().GetResult();
                 }
             }
         }
