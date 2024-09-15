@@ -1,3 +1,5 @@
+import { fileURLToPath, URL } from 'node:url'
+
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
@@ -38,9 +40,17 @@ if (isDev && (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath))) {
   }
 }
 
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+  ],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  },
   server: {
     https: isDev
       ? {
@@ -62,7 +72,7 @@ export default defineConfig({
       //   'home-another.ts': 'src/pages/home-another.ts'
       // }
 
-      input: ['src/pages/home-index.ts', 'src/pages/home-another.ts']
+      input: ['src/main.ts']
     }
   }
 })

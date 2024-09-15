@@ -1,52 +1,41 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-defineProps<{ msg: string }>()
-
-const count = ref(0)
+defineProps<{
+  msg: string
+}>()
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
-  <p>Blah blah asdf</p>
-  <p>
-    Recommended IDE setup:
-    <a href="https://code.visualstudio.com/" target="_blank">VS Code</a>
-    +
-    <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
-  </p>
-
-  <p>See <code>README.md</code> for more information.</p>
-
-  <p>
-    <a href="https://vitejs.dev/guide/features.html" target="_blank">
-      Vite Docs
-    </a>
-    |
-    <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Docs</a>
-  </p>
-
-  <button type="button" @click="count++">count is: {{ count }}</button>
-  <p>
-    Edit
-    <code>components/HelloWorld.vue</code> to test hot module replacement.
-  </p>
+  <div class="greetings">
+    <h1 class="green">{{ msg }}</h1>
+    <h3>
+      You’ve successfully created a project with
+      <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
+      <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
+    </h3>
+  </div>
 </template>
 
 <style scoped>
-a {
-  color: #42b983;
+h1 {
+  font-weight: 500;
+  font-size: 2.6rem;
+  position: relative;
+  top: -10px;
 }
 
-label {
-  margin: 0 0.5em;
-  font-weight: bold;
+h3 {
+  font-size: 1.2rem;
 }
 
-code {
-  background-color: #eee;
-  padding: 2px 4px;
-  border-radius: 4px;
-  color: #304455;
+.greetings h1,
+.greetings h3 {
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .greetings h1,
+  .greetings h3 {
+    text-align: left;
+  }
 }
 </style>

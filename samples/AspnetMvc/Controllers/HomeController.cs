@@ -15,7 +15,7 @@ namespace AspnetMvc.Controllers
         {
             var model = new VitePageMvcModel
             {
-                Entry = "src/pages/home-index.ts",
+                Entry = "src/main.ts",
                 UseAntiforgery = true,
                 PageData = new
                 {

@@ -6,7 +6,10 @@ using Newtonsoft.Json.Serialization;
 
 namespace Soukoku.AspNet.Mvc.ViteIntegration;
 
-static class JsonWrapper
+/// <summary>
+/// JSON serialization used by vite integration.
+/// </summary>
+public static class JsonWrapper
 {
     static readonly JsonSerializerSettings Options = new()
     {
@@ -16,11 +19,22 @@ static class JsonWrapper
          }
     };
 
+    /// <summary>
+    /// Deserializes json into data.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="jsonText"></param>
+    /// <returns></returns>
     public static T? Deserialize<T>(string jsonText)
     {
         return JsonConvert.DeserializeObject<T>(jsonText, Options);
     }
-
+    /// <summary>
+    /// Serializes data into json.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="obj"></param>
+    /// <returns></returns>
     public static string Serialize<T>(T obj)
     {
         return JsonConvert.SerializeObject(obj, Options);

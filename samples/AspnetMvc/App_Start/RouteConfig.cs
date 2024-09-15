@@ -16,8 +16,10 @@ namespace AspnetMvc
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapMvcAttributeRoutes();
+
+            // for prod the entire dist output should be placed in web app root.
             var rootPath = HostingEnvironment.MapPath("~/");
-            var manifestPath = Path.GetFullPath(Path.Combine($"{rootPath}../vite-app/dist/manifest.json"));
+            var manifestPath = Path.GetFullPath(Path.Combine($"{rootPath}../vite-app/dist/.vite/manifest.json"));
             routes.MapViteSpaProxy(manifestPath);
 
             routes.MapRoute(

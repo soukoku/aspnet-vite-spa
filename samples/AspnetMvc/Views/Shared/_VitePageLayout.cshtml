@@ -1,0 +1,54 @@
+﻿@using Soukoku.AspNet.Mvc.ViteIntegration
+@model VitePageMvcModel
+@{
+    var manifest = ViteBuildManifest.Default;
+    var resolved = manifest.ResolveEntryChunk(Model.Entry);
+    var lang = ViewData["lang"] ?? "en";
+    string pageData = null;
+
+    if (Model.PageData != null)
+    {
+        pageData = JsonWrapper.Serialize(Model.PageData);
+    }
+}
+<!DOCTYPE html>
+<html lang="@lang">
+<head>
+  <meta charset="utf-8" />
+  @if (!string.IsNullOrEmpty(Model.ViewportOptions))
+  {
+    <meta name="viewport" content="@Model.ViewportOptions" />
+  }
+  <title>@ViewData["Title"]</title>
+  @if (manifest.Entries.Count == 0)
+  {
+    <script type="module" src="@Url.Content("~/@vite/client")"></script>
+    <script type="module" src="@Url.Content($"~/{Model.Entry}")"></script>
+  }
+  else if (!string.IsNullOrEmpty(resolved.MainModule))
+  {
+    <script type="module" src="@Url.Content(resolved.MainModule)"></script>
+    foreach (var subMod in resolved.PreloadModules)
+    {
+      <link rel="modulepreload" href="@Url.Content(subMod)">
+    }
+    foreach (var css in resolved.CssFiles)
+    {
+      <link rel="stylesheet" href="@Url.Content(css)">
+    }
+  }
+  @RenderSection("Head", required: false)
+</head>
+<body>
+  @if (Model.UseAntiforgery)
+  {
+    @Html.AntiForgeryToken()
+  }
+  @if (pageData != null)
+  {
+    <script type="application/json" id="pageData">@Html.Raw(pageData)</script>
+  }
+  @RenderBody()
+  @RenderSection("Scripts", required: false)
+</body>
+</html>

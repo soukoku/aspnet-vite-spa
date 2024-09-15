@@ -3,30 +3,30 @@ using Soukoku.AspNetCore.ViteIntegration;
 
 namespace aspnet_vite_spa.Controllers
 {
-  public class HomeController : Controller
-  {
-    public IActionResult Index()
+    public class HomeController : Controller
     {
-      var model = new VitePageMvcModel
-      {
-        Entry = "src/pages/home-index.ts",
-        UseAntiforgery = true,
-        PageData = new
+        public IActionResult Index()
         {
-          Property = "howdy"
+            var model = new VitePageMvcModel
+            {
+                Entry = "src/main.ts",
+                UseAntiforgery = true,
+                PageData = new
+                {
+                    Property = "howdy"
+                }
+            };
+            return View("VuePage", model);
         }
-      };
-      return View("VuePage", model);
-    }
 
 
-    public IActionResult Another()
-    {
-      var model = new VitePageMvcModel
-      {
-        Entry = "src/pages/home-another.ts"
-      };
-      return View("VuePage", model);
+        //public IActionResult Another()
+        //{
+        //  var model = new VitePageMvcModel
+        //  {
+        //    Entry = "src/pages/home-another.ts"
+        //  };
+        //  return View("VuePage", model);
+        //}
     }
-  }
 }
