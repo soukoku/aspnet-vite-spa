@@ -10,6 +10,13 @@ namespace Soukoku.AspNetCore.ViteIntegration;
 /// </summary>
 public class ViteBuildManifest
 {
+#if NETFRAMEWORK
+    /// <summary>
+    /// The global default for mvc view use.
+    /// </summary>
+    public static ViteBuildManifest Default { get; set; } = new("");
+#endif
+
     /// <summary>
     /// Gets the underlying manifest dictionary.
     /// </summary>

@@ -6,7 +6,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace Soukoku.AspNet.Mvc.ViteIntegration;
 
-static class JsonWrapper
+public static class JsonWrapper
 {
     static readonly JsonSerializerSettings Options = new()
     {

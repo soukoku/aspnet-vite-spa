@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Soukoku.AspNetCore.ViteIntegration\Soukoku.AspNetCore.ViteIntegration.csproj" />
+    <ProjectReference Include="..\..\src\Soukoku.AspNetCore.ViteIntegration\Soukoku.AspNetCore.ViteIntegration.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

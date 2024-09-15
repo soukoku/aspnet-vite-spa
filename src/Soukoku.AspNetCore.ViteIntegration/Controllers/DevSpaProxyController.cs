@@ -55,8 +55,9 @@ namespace Soukoku.AspNetCore.ViteIntegration.Controllers
                 srcPath != null ? $"src/{srcPath}" :
                 nmPath != null ? $"node_modules/{nmPath}" :
                 assetPath != null ? $"assets/{assetPath}" : "";
+            url += Request.QueryString;
 
-            var resp = await __proxyClient.GetAsync(url + Request.QueryString).ConfigureAwait(false);
+            var resp = await __proxyClient.GetAsync(url).ConfigureAwait(false);
             return new HttpResponseMessageResult(resp);
         }
     }

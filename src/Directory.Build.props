@@ -14,7 +14,7 @@
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>../../release-build/strong-name.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>../../../release-build/strong-name.snk</AssemblyOriginatorKeyFile>
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -23,7 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="../README.md" Pack="true" PackagePath="\" />
+    <None Include="../../README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>

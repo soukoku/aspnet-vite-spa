@@ -1,15 +1,15 @@
 ﻿@using Soukoku.AspNet.Mvc.ViteIntegration
-@inject ViteBuildManifest manifest
 @model VitePageMvcModel
 @{
-  var resolved = manifest.ResolveEntryChunk(Model.Entry);
-  var lang = ViewData["lang"] ?? "en";
-  string? pageData = null;
+    var manifest = ViteBuildManifest.Default;
+    var resolved = manifest.ResolveEntryChunk(Model.Entry);
+    var lang = ViewData["lang"] ?? "en";
+    string pageData = null;
 
-  if (Model.PageData != null)
-  {
-    pageData = JsonWrapper.Serialize(Model.PageData);
-  }
+    if (Model.PageData != null)
+    {
+        pageData = JsonWrapper.Serialize(Model.PageData);
+    }
 }
 <!DOCTYPE html>
 <html lang="@lang">
@@ -20,7 +20,7 @@
     <meta name="viewport" content="@Model.ViewportOptions" />
   }
   <title>@ViewData["Title"]</title>
-  @if (manifest.Entries.Count == 0 && env.IsDevelopment())
+  @if (manifest.Entries.Count == 0)
   {
     <script type="module" src="@Url.Content("~/@vite/client")"></script>
     <script type="module" src="@Url.Content($"~/{Model.Entry}")"></script>
@@ -37,7 +37,7 @@
       <link rel="stylesheet" href="@Url.Content(css)">
     }
   }
-  @await RenderSectionAsync("Head", required: false)
+  @RenderSection("Head", required: false)
 </head>
 <body>
   @if (Model.UseAntiforgery)
@@ -49,6 +49,6 @@
     <script type="application/json" id="pageData">@Html.Raw(pageData)</script>
   }
   @RenderBody()
-  @await RenderSectionAsync("Scripts", required: false)
+  @RenderSection("Scripts", required: false)
 </body>
 </html>

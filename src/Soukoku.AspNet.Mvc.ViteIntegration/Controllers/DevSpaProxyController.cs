@@ -50,8 +50,10 @@ namespace Soukoku.AspNet.Mvc.ViteIntegration.Controllers
                 srcPath != null ? $"src/{srcPath}" :
                 nmPath != null ? $"node_modules/{nmPath}" :
                 assetPath != null ? $"assets/{assetPath}" : "";
+            url += Request.Url.Query;
 
-            return new HttpResponseMessageResult(await __proxyClient.GetAsync(url + Request.QueryString).ConfigureAwait(false));
+            var resp = await __proxyClient.GetAsync(url).ConfigureAwait(false);
+            return new HttpResponseMessageResult(resp);
         }
     }
 
@@ -110,7 +112,8 @@ namespace Soukoku.AspNet.Mvc.ViteIntegration.Controllers
                     {
                         response.Headers.Set(header.Key, header.Value.FirstOrDefault());
                     }
-                    response.ContentType = _responseMessage.Content.Headers.ContentType.ToString();
+                    if (_responseMessage.Content.Headers.ContentType != null)
+                        response.ContentType = _responseMessage.Content.Headers.ContentType.ToString();
                     _responseMessage.Content.CopyToAsync(response.OutputStream).ConfigureAwait(false).GetAwaiter().GetResult();
                     response.End();
                 }

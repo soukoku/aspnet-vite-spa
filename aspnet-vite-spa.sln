@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspnetCoreMvc", "AspnetCoreMvc\AspnetCoreMvc.csproj", "{67FA5BB1-E9DA-445B-96B0-F0950E69A461}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspnetCoreMvc", "samples\AspnetCoreMvc\AspnetCoreMvc.csproj", "{67FA5BB1-E9DA-445B-96B0-F0950E69A461}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8BBF0FB9-2172-4456-AAA7-7781AEB1C21C}"
 	ProjectSection(SolutionItems) = preProject
@@ -13,11 +13,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Soukoku.AspNetCore.ViteIntegration", "Soukoku.AspNetCore.ViteIntegration\Soukoku.AspNetCore.ViteIntegration.csproj", "{EAF339CC-FE92-4237-BD9D-D04E30B24864}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Soukoku.AspNetCore.ViteIntegration", "src\Soukoku.AspNetCore.ViteIntegration\Soukoku.AspNetCore.ViteIntegration.csproj", "{EAF339CC-FE92-4237-BD9D-D04E30B24864}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspnetMvc", "AspnetMvc\AspnetMvc.csproj", "{05CAD0EC-0B01-456C-8DA1-0DD16AC176BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspnetMvc", "samples\AspnetMvc\AspnetMvc.csproj", "{05CAD0EC-0B01-456C-8DA1-0DD16AC176BB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Soukoku.AspNet.Mvc.ViteIntegration", "Soukoku.AspNet.Mvc.ViteIntegration\Soukoku.AspNet.Mvc.ViteIntegration.csproj", "{35233539-50DB-49EC-84CE-52FE31AD61CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Soukoku.AspNet.Mvc.ViteIntegration", "src\Soukoku.AspNet.Mvc.ViteIntegration\Soukoku.AspNet.Mvc.ViteIntegration.csproj", "{35233539-50DB-49EC-84CE-52FE31AD61CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

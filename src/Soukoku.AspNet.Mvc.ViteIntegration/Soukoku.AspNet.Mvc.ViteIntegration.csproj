@@ -8,11 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Views\Shared\VuePage.cshtml" />
-    <None Remove="Views\Shared\_VitePageLayout.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Include="..\Soukoku.AspNetCore.ViteIntegration\IVitePageModel.cs" Link="IVitePageModel.cs" />
     <Compile Include="..\Soukoku.AspNetCore.ViteIntegration\JsonWrapper.cs" Link="JsonWrapper.cs" />
     <Compile Include="..\Soukoku.AspNetCore.ViteIntegration\ResolvedFiles.cs" Link="ResolvedFiles.cs" />
@@ -22,14 +17,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Views\Shared\VuePage.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Views\Shared\_VitePageLayout.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
+    <None Remove="Views\Shared\VuePage.cshtml" />
+    <None Remove="Views\Shared\_VitePageLayout.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Shared\VuePage.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_VitePageLayout.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Soukoku.AspNet.Mvc.ViteIntegration.Controllers;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -13,7 +16,9 @@ namespace AspnetMvc
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapMvcAttributeRoutes();
-            routes.MapViteSpaProxy();
+            var rootPath = HostingEnvironment.MapPath("~/");
+            var manifestPath = Path.GetFullPath(Path.Combine($"{rootPath}../vite-app/dist/manifest.json"));
+            routes.MapViteSpaProxy(manifestPath);
 
             routes.MapRoute(
                 name: "Default",
