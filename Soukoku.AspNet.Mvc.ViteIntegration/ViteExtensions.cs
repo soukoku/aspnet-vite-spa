@@ -3,6 +3,10 @@ using System.Web.Routing;
 
 namespace System.Web.Mvc
 {
+    /// <summary>
+    /// Contains extension methods for adding Vite support to an 
+    /// aspnet mvc app.
+    /// </summary>
     public static class ViteExtensions
     {
         /// <summary>
