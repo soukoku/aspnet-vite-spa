@@ -2,7 +2,7 @@
   <PropertyGroup>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
-    <Version>$(FileVersion)-alpha17</Version>
+    <Version>$(FileVersion)-alpha18</Version>
     
     <!--even more unlikely to change-->
     <NeutralLanguage>en-US</NeutralLanguage>

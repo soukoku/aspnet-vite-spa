@@ -37,6 +37,7 @@ namespace Soukoku.AspNetCore.ViteIntegration.Controllers
         [HttpGet]
         [Route("@vite/{*vitePath}")]
         [Route("@id/{*idPath}")]
+        [Route("@fs/{*fsPath}")]
         [Route("src/{*srcPath}")]
         [Route("node_modules/{*nmPath}")]
         [Route("assets/{*assetPath}")]
@@ -44,6 +45,7 @@ namespace Soukoku.AspNetCore.ViteIntegration.Controllers
             [FromServices] IWebHostEnvironment environment,
             string? vitePath = null,
             string? idPath = null,
+            string? fsPath = null,
             string? srcPath = null,
             string? nmPath = null,
             string? assetPath = null)
@@ -52,6 +54,7 @@ namespace Soukoku.AspNetCore.ViteIntegration.Controllers
 
             var url = vitePath != null ? $"@vite/{vitePath}" :
                 idPath != null ? $"@id/{idPath}" :
+                fsPath != null ? $"@fs/{fsPath}" :
                 srcPath != null ? $"src/{srcPath}" :
                 nmPath != null ? $"node_modules/{nmPath}" :
                 assetPath != null ? $"assets/{assetPath}" : "";
