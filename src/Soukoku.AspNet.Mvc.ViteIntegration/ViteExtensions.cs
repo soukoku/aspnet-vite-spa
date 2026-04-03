@@ -20,7 +20,7 @@ public static class ViteExtensions
     /// <returns></returns>
     public static void MapViteSpaProxy(this RouteCollection routes,
         string viteManifestPath,
-        string? devTimeUrl = "https://localhost:3000")
+        string? devTimeUrl)
     {
         if (routes == null)
         {

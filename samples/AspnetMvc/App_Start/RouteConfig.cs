@@ -20,7 +20,12 @@ namespace AspnetMvc
             // for prod the entire dist output should be placed in web app root.
             var rootPath = HostingEnvironment.MapPath("~/");
             var manifestPath = Path.GetFullPath(Path.Combine($"{rootPath}../vite-app/dist/.vite/manifest.json"));
-            routes.MapViteSpaProxy(manifestPath);
+#if DEBUG
+            // for dev, we need to specify dev server URL
+            routes.MapViteSpaProxy(manifestPath, "https://localhost:3000");
+#else
+            routes.MapViteSpaProxy(manifestPath, null);
+#endif
 
             routes.MapRoute(
                 name: "Default",

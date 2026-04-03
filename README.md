@@ -41,16 +41,21 @@ public ActionResult Index(string? anyPath = null)
 Run the typical `npm run dev` in your vite app folder, then debug in aspnet as usual.
 
 
-# For aspnet mvc (fx 4.6.2+) 
+# For aspnet mvc (fx 4.7.2+) 
 
 Add the NuGet package `Soukoku.AspNet.Mvc.ViteIntegration`, then
 in the typical **RouteConfig.cs** file, register it with.
 
 ```cs
-// assuming "dist" output content is placed in site root
-var manifestPath = HostingEnvironment.MapPath("~/.vite/manifest.json");
-// depends on the actual dev server url
-routes.MapViteSpaProxy(manifestPath, "https://localhost:3000");
+// assuming "dist" output content is placed in a folder in site root
+var manifestPath = HostingEnvironment.MapPath("~/vite-app/.vite/manifest.json");
+
+#if DEBUG
+    // for dev-time, we need to specify dev server URL
+    routes.MapViteSpaProxy(manifestPath, "https://localhost:3000");
+#else
+    routes.MapViteSpaProxy(manifestPath, null);
+#endif
 
 ```
 
