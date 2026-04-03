@@ -26,11 +26,11 @@ public static class ViteExtensions
         {
             throw new ArgumentNullException("routes");
         }
-        DevSpaProxyController.SetDevTimeUrl(devTimeUrl);
+        ViteProxyController.SetDevTimeUrl(devTimeUrl);
         ViteBuildManifest.Default = new ViteBuildManifest(viteManifestPath);
 
         //ViewEngines.Engines.Add(engine);
-        ControllerBuilder.Current.DefaultNamespaces.Add(typeof(DevSpaProxyController).Namespace);
+        ControllerBuilder.Current.DefaultNamespaces.Add(typeof(ViteProxyController).Namespace);
     }
 
 }

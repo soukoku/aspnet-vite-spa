@@ -1,13 +1,14 @@
 ﻿using System.Net.Http;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Soukoku.AspNet.Mvc.ViteIntegration.Controllers
 {
     /// <summary>
-    /// Debug-time only controller for proxying requests to vite's dev server during development.
-    /// This is only used during development.
+    /// Controller for proxying requests to vite's dev server during development,
+    /// or the final built assets during production.
     /// </summary>
-    public class DevSpaProxyController : Controller
+    public class ViteProxyController : Controller
     {
         internal static void SetDevTimeUrl(string? devTimeUrl)
         {
@@ -27,7 +28,7 @@ namespace Soukoku.AspNet.Mvc.ViteIntegration.Controllers
         private static HttpClient? __proxyClient;
 
         /// <summary>
-        /// Proxies requests to vite's dev server during dev time.
+        /// Proxies requests to vite's dev server or the static asset file.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -36,14 +37,43 @@ namespace Soukoku.AspNet.Mvc.ViteIntegration.Controllers
         [Route("src/{*srcPath}")]
         [Route("node_modules/{*nmPath}")]
         [Route("assets/{*assetPath}")]
-        public async Task<ActionResult> SpaDevServerProxy(
+        public async Task<ActionResult> GetViteResource(
             string? vitePath = null,
             string? idPath = null,
             string? srcPath = null,
             string? nmPath = null,
             string? assetPath = null)
         {
-            if (__proxyClient == null) return new HttpNotFoundResult();
+            if (__proxyClient == null)
+            {
+                if (assetPath != null && !string.IsNullOrEmpty(ViteBuildManifest.Default.ManifestFilePath))
+                {
+                    // try to see if built assets are available
+                    try
+                    {
+                        var manifestDir = Path.GetDirectoryName(ViteBuildManifest.Default.ManifestFilePath);
+                        var rootDir = manifestDir != null ? Path.GetDirectoryName(manifestDir) : null;
+
+                        if (rootDir != null)
+                        {
+                            var assetFolder = Path.GetFullPath(Path.Combine(rootDir, "assets"));
+                            var requestedAssetPath = Path.GetFullPath(Path.Combine(assetFolder, assetPath));
+
+                            if ((requestedAssetPath.StartsWith(assetFolder + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) ||
+                                 requestedAssetPath.Equals(assetFolder, StringComparison.OrdinalIgnoreCase)) &&
+                                System.IO.File.Exists(requestedAssetPath))
+                            {
+                                return File(requestedAssetPath, MimeMapping.GetMimeMapping(requestedAssetPath));
+                            }
+                        }
+                    }
+                    catch (ArgumentException)
+                    {
+                        // Invalid path characters or malformed path
+                    }
+                }
+                return new HttpNotFoundResult();
+            }
 
             var url = vitePath != null ? $"@vite/{vitePath}" :
                 idPath != null ? $"@id/{idPath}" :
