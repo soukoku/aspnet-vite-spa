@@ -24,6 +24,7 @@ if (isDev) {
   certFilePath = path.join(baseFolder, `${certificateName}.pem`)
   keyFilePath = path.join(baseFolder, `${certificateName}.key`)
 
+  console.log(`Utilizing cert file ${keyFilePath}`)
   if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
     fs.mkdirSync(baseFolder, { recursive: true })
     if (
