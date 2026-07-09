@@ -10,6 +10,8 @@
   <ItemGroup>
     <None Remove="Views\Shared\VuePage.cshtml" />
     <None Remove="Views\Shared\_VitePageLayout.cshtml" />
+    <None Remove="web.config.install.xdt" />
+    <None Remove="web.config.uninstall.xdt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +26,8 @@
   <ItemGroup>
     <Content Include="Views\Shared\VuePage.cshtml" />
     <Content Include="Views\Shared\_VitePageLayout.cshtml" />
+    <Content Include="web.config.install.xdt" />
+    <Content Include="web.config.uninstall.xdt" />
   </ItemGroup>
 
   <ItemGroup>
