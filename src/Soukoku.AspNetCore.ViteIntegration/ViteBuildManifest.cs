@@ -23,7 +23,7 @@ public class ViteBuildManifest
     public IReadOnlyDictionary<string, ViteFileChunk> Entries { get; }
 
     /// <summary>
-    /// The file path to the manifest.json used to create this instance.
+    /// The file path to the manifest.json used to create this instance if applicable.
     /// </summary>
     public string ManifestFilePath { get; }
 
@@ -49,6 +49,25 @@ public class ViteBuildManifest
             var json = File.ReadAllText(manifestFile);
 
             value = JsonWrapper.Deserialize<Dictionary<string, ViteFileChunk>>(json);
+        }
+        Entries = value ?? new Dictionary<string, ViteFileChunk>();
+    }
+
+    /// <summary>
+    /// Initialize with a manifest stream.
+    /// </summary>
+    /// <param name="manifestStream">Stream containing the manifest.json content.</param>
+    public ViteBuildManifest(Stream manifestStream)
+    {
+        IReadOnlyDictionary<string, ViteFileChunk>? value = null;
+        ManifestFilePath = "";
+        if (manifestStream != null)
+        {
+            using (var reader = new StreamReader(manifestStream))
+            {
+                var json = reader.ReadToEnd();
+                value = JsonWrapper.Deserialize<Dictionary<string, ViteFileChunk>>(json);
+            }
         }
         Entries = value ?? new Dictionary<string, ViteFileChunk>();
     }
