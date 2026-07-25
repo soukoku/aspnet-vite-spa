@@ -13,12 +13,22 @@ public static class ViteExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <param name="devTimeUrl">Url to vite dev server at dev time. If base is used, add it with slash like https://localhost/3000/somebase/.</param>
+    /// <param name="factory">Optional factory function to create a <see cref="ViteBuildManifest"/> instance.</param>
     /// <returns></returns>
-    public static IServiceCollection AddViteManifest(this IServiceCollection services, string? devTimeUrl = "https://localhost:3000")
+    public static IServiceCollection AddViteManifest(this IServiceCollection services, 
+        string? devTimeUrl = "https://localhost:3000", 
+        Func<IServiceProvider, ViteBuildManifest>? factory = null)
     {
         ArgumentNullException.ThrowIfNull(services);
 
-        services.AddSingleton<ViteBuildManifest>();
+        if (factory == null)
+        {
+            services.AddSingleton<ViteBuildManifest>();
+        }
+        else
+        {
+            services.AddSingleton(factory);
+        }
         DevSpaProxyController.SetDevTimeUrl(devTimeUrl);
 
         return services;
