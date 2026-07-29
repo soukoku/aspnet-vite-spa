@@ -11,7 +11,10 @@ namespace Soukoku.AspNet.Mvc.ViteIntegration;
 /// </summary>
 public static class JsonWrapper
 {
-    static readonly JsonSerializerSettings Options = new()
+    /// <summary>
+    /// The JSON serializer used in page data.
+    /// </summary>
+    public static readonly JsonSerializerSettings Options = new()
     {
          ContractResolver = new DefaultContractResolver
          {
