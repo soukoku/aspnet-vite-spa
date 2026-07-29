@@ -59,10 +59,5 @@ static class JsonWrapper
     {
         return JsonSerializer.Deserialize<T>(jsonText, Options);
     }
-
-    public static string Serialize<T>(T obj)
-    {
-        return JsonSerializer.Serialize(obj, Options);
-    }
 }
 #endif
